@@ -479,8 +479,8 @@ class SC_rte_rte {
 			</tr>
 			<tr><td bgcolor="black"><img src="clear.gif" width="1" height="1" alt="" /></td></tr>
 		</table>
-		<iframe src="res/blank.html" name="idPopup" style="height: 200px; left: 25px; margin-top: 8px; position: absolute; visibility: hidden; width: 200px; z-index: -1"></iframe>
-		<iframe src="res/blank.html" id="EditBox" name="idEditbox" width="100%" height="100%" onfocus="edHidePopup();" onblur="spitItOut();"></iframe>
+		<iframe src="" name="idPopup" style="height: 200px; left: 25px; margin-top: 8px; position: absolute; visibility: hidden; width: 200px; z-index: -1"></iframe>
+		<iframe src="" id="EditBox" name="idEditbox" width="100%" height="100%" onfocus="edHidePopup();" onblur="spitItOut();"></iframe>
 		<div id="tbmode"><script language="javascript" type="text/javascript">drawModeSelect('.$this->toggleHTML.');</script></div>
 	</div>
 </body>
