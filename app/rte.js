@@ -8,23 +8,26 @@
 ***************************************************************/
 /**
  * Original Author: Unknown
- * Typo3 Modifications: 
- *		Kasper Skårhøj <kasper@typo3.com> 
+ * Typo3 Modifications:
+ *		Kasper Skårhøj <kasper@typo3.com>
  *		Martin van Es <m.vanes@drecomm.nl>
+ *		Andreas Otto <andreas.otto@dkd.de>, http://bugs.typo3.org/bug_view_page.php?bug_id=0000283
+ *
+ * TYPO3 CVS ID: $Id$
  */
 
- 
 
 
- 
- 
- 
 
- 
- 
- 
- 
- 
+
+
+
+
+
+
+
+
+
  // List of emoticon gifs. Add or remove to change selection
 // arEmoticons - 12x12 pixels
 // arBigEmoticons - 16x16 pixels
@@ -84,14 +87,14 @@ var aSizes = new Array(25,25,25,8,25,25,45,41,41,8,25,25,25,8,25,25,25,8,25,25,2
 
 
 
- 
+
 /**
  *
  * Get object functions
  *
  */
 
- 
+
 /**
  * Getting first parent block of oEl
  */
@@ -123,11 +126,11 @@ function debugObj(obj,name)	{
 		if (obj[i])	{
 			acc+=i+":  "+obj[i]+"\n";
 		}
-	}			  
+	}
 	alert("Object: "+name+"\n\n"+acc);
 }
 
- 
+
 /**
  *
  * "Input/Output" functions
@@ -290,7 +293,7 @@ function setMode(bMode) {
 		cbMode.checked = !bMode;
 		editor_resetCursor(true);
 		setFocus();
-	}	
+	}
 	return bMode;
 }
 
@@ -336,20 +339,22 @@ function initEditor() {
 //	alert(sz);
 
 	edInitPopup();
-	idEditbox.document.designMode = "on";
-	idEditbox.document.open("text/html","replace");
-	idEditbox.document.write(sz);
-	idEditbox.document.close();
-	idEditbox.document.body.onblur = theEditor.SaveSelection;
-	idEditbox.document.onkeydown = editor_keyDownHandler;
-	idEditbox.document.onmousedown = editor_clickHandler;
-	idEditbox.document.ondblclick = editor_dblClickHandler;
+	var d = idEditbox.document;
+	d.designMode = "on";
+	d = idEditbox.document;
+	d.open("text/html","replace");
+	d.write(sz);
+	d.close();
+	d.body.onblur = theEditor.SaveSelection;
+	d.onkeydown = editor_keyDownHandler;
+	d.onmousedown = editor_clickHandler;
+	d.ondblclick = editor_dblClickHandler;
 	setTimeout("pageReady()",0);
 }
 
 
 /**
- * Starting the editor 
+ * Starting the editor
  * This function is called by initEditor with a setTimeout() function
  */
 function pageReady() {
@@ -379,7 +384,7 @@ function rightClick()	{
 //	var oSel	= theEditor.GetSelection();
 //if (oSel.type=="None")	debugObj(oSel);
 	theEditor.SaveSelectionPopup();
-	
+
 	showPopUpMenu('copycutpaste');
 	return false;
 }
@@ -446,11 +451,11 @@ function drawToolbar(){
 	var sz = "<DIV ID=idStandardBar><NOBR>", iLeft=0, iHeight=24
 	for (var i = 0 ; i < aSizes.length; i++) {
 		sz	+=  ''
-		+'<SPAN CLASS=tbButton ONKEYPRESS="if (event.keyCode==13) {'+aCommand[i]+';event.keyCode=0}" '+(aTips[i]=='' ? '' : ('TABINDEX=' + (i+1))) 
-		+' ID="tb'+aIds[i]+'" STYLE="width: ' + aSizes[i] + ';height:'+iHeight+'">' 
+		+'<SPAN CLASS=tbButton ONKEYPRESS="if (event.keyCode==13) {'+aCommand[i]+';event.keyCode=0}" '+(aTips[i]=='' ? '' : ('TABINDEX=' + (i+1)))
+		+' ID="tb'+aIds[i]+'" STYLE="width: ' + aSizes[i] + ';height:'+iHeight+'">'
 		+'<SPAN STYLE="position:absolute;width:' + aSizes[i] + ';height:' + iHeight + ';clip: rect(0 ' + aSizes[i] + ' ' + iHeight + ' 0)">'
 		+'<IMG TITLE="' + aTips[i] + '" ONCLICK="' + aCommand[i] + '; event.cancelBubble=true" ONMOUSEDOWN="if (event.button==1) this.style.pixelTop=-' + (iHeight*2) + '" ONMOUSEOVER="this.style.pixelTop=-' + iHeight + '" ONMOUSEOUT="this.style.pixelTop=0" ONMOUSEUP="this.style.pixelTop=-' + iHeight + '" SRC="' + L_TOOLBARGIF_TEXT + '" STYLE="position:absolute;top:0;left:-' + iLeft + '">'
-		+'</SPAN></SPAN>' 
+		+'</SPAN></SPAN>'
 		+ (aTips[i]=='' ?  '</NOBR><NOBR>' : '')
 		iLeft += aSizes[i]
 	}
@@ -501,7 +506,7 @@ function editorObj(){
 	this.aBindings		= new Array();
 	this.aListPopups	= new Object();
 	this.aCache			= new Object();
-	
+
 	this.RestoreSelection	= editorObj_RestoreSelection;
 	this.GetSelection	= editorObj_GetSelection;
 	this.SaveSelection	= editorObj_SaveSelection;
@@ -513,7 +518,7 @@ function editorObj_RestoreSelection() {
 	if (this.selection) {
 		this.selection.select();
 		this.selection=null;	// Kasper added 090502
-	}	
+	}
 }
 
 // Getting current selection of the window
@@ -574,7 +579,7 @@ function formatSelection(szHow, szValue, className) {
 				if (((oBlock.tagName=="TABLE") || (oBlock.tagName=="IMG")) && (("left"==oBlock.align) && ("Left"==szValue))) {		// This is setting the align-ment to nothing ONLY if the align-ment is already "left"!
 					oBlock.align = "";
 					break;
-				}	
+				}
 				oBlock.align = szValue;
 	//			if ((oBlock.tagName=="HR") || ((oBlock.tagName=="IMG") && szValue!="Center")) break;
 			}
@@ -668,7 +673,7 @@ function edHidePopup(noFocus) {
 	document.all.idPopup.style.visibility = "hidden";
 	idPopup.document._theType = "";
    	idPopup.document.onkeydown=idPopup.document.onmouseover=idPopup.document.onclick = null;
-	
+
 	theEditor.RestoreSelection();
 	if (!noFocus)	setFocus();
 }
@@ -679,14 +684,14 @@ function edHidePopup(noFocus) {
 function showPopUpMenu(theType) {
 	var oRenderer;
 	var szCacheKey = "PopupRenderer." + theType;
-	
+
    	if (idPopup.document._theType == theType)	{	// If this popup is already shown, then hide it!
 		edHidePopup();
 	} else {	// Else show the popup
 		document.all.idPopup.style.zIndex = -1;
 		oRenderer = theEditor.aCache[szCacheKey];	// Getting from cache
 		if ((!oRenderer) || isInCommaList("Link,class,Image,User",theType))	{	// Make sure certain types of pop-ups are NOT cached!
-			theEditor.aCache[szCacheKey] = oRenderer = new renderPopup(theType);	
+			theEditor.aCache[szCacheKey] = oRenderer = new renderPopup(theType);
 		}
 		// Force Sizing
 		document.all.idPopup.style.visibility = ""
@@ -711,11 +716,11 @@ function renderPopup_Display(theType) {
 	var szCacheKey = "PopupRenderer." + theType;
 	var oRenderer = theEditor.aCache[szCacheKey];
 		// Setting position and size:
-	if (oRenderer.autoSize) {	
+	if (oRenderer.autoSize) {
 		idPopup.document.all.puRegion.style.pixelHeight = document.all.idPopup.style.pixelHeight = idPopup.document.all.puRegion.offsetHeight;
 		idPopup.document.all.puRegion.style.pixelWidth = document.all.idPopup.style.pixelWidth = idPopup.document.all.puRegion.offsetWidth + 50;
 		document.all.idPopup.style.pixelLeft = (document.body.clientWidth - idPopup.document.all.puRegion.offsetWidth) / 2;
-	} else { 
+	} else {
 		idPopup.document.all.puRegion.style.pixelHeight  = document.all.idPopup.style.pixelHeight = document.body.clientHeight - idToolbar.offsetHeight- document.all.idMode.offsetHeight-20;
 		idPopup.document.all.puRegion.style.pixelWidth  = document.all.idPopup.style.pixelWidth = document.body.clientWidth - 50;
 		document.all.idPopup.style.pixelLeft = 25;
@@ -745,7 +750,7 @@ function renderPopup(theType){
 			this.OnKeyDown  = renderPopup_onKeyDown;
 		case "copycutpaste":
 			this.OnMouseOver= renderPopup_onMouseOver;
-		case "BackColor": 
+		case "BackColor":
 		case "ForeColor":
 			this.OnClick	= renderPopup_onClick;
 			this.Highlight  = renderPopup_highlight;
@@ -787,7 +792,7 @@ function renderPopup(theType){
 			this.szHTML			= this.PrepareHTML();
    			this.autoSize		= false;
 		break;
-		case "Table": 
+		case "Table":
 			this.szCaption		= L_PUTITLENEWTABLE_TEXT;
 			this.PrepareHTML	= renderPopup_tableRenderer;
 			this.szHTML			= this.PrepareHTML();
@@ -804,7 +809,7 @@ function renderPopup(theType){
 			this.szHTML			= this.PrepareHTML();
    			this.autoSize		= false;
 		break;
-		case "BackColor": 
+		case "BackColor":
 			this.szCaption		= L_PUTITLEBGCOLOR_TEXT;
 			this.szHTML			= "<DIV ID=ColorPopup ALIGN=CENTER><BR>" + renderPopup_colorTable("") + "</DIV>";
 		break;
@@ -856,14 +861,14 @@ function renderPopup_GetHTML(){
  * Various handlers for the pop-up menus
  */
 function renderPopup_onClick() {
-	var elTD = getElementObject(this.oDocument.parentWindow.event.srcElement, "TD") 
+	var elTD = getElementObject(this.oDocument.parentWindow.event.srcElement, "TD")
 	if (elTD && elTD._item)	{
 		this.Select(elTD);
 	} else {
-		var elTR = getElementObject(this.oDocument.parentWindow.event.srcElement, "TR") 
+		var elTR = getElementObject(this.oDocument.parentWindow.event.srcElement, "TR")
 		if (elTR && elTR._item)	{
 			this.Select(elTR);
-		}	
+		}
 	}
 }
 function renderPopup_genericOnKeyDown() {
@@ -877,8 +882,8 @@ function renderPopup_onKeyDown() {
 	var idList  = this.oDocument.all.idList
 	var elTR	= getElementObject(this.elCurrent,"TR")
 	var elTD	= getElementObject(this.elCurrent,"TD")
-	
-	
+
+
 	if (elTR != null) 	{
 		iRow	= elTR.rowIndex
 		iCell   = elTD.cellIndex
@@ -887,22 +892,22 @@ function renderPopup_onKeyDown() {
 	switch (ev.keyCode) 	{
 		case 37:
 			iCell--
-			if (iCell < 0) 
+			if (iCell < 0)
 				iCell = idList.rows[iRow].cells.length-1
 			break
 		case 38:
 			iRow--
-			if (iRow < 0) 
+			if (iRow < 0)
 				iRow = idList.rows.length-1
 			break
 		case 39:
 			iCell++
-			if (iCell > idList.rows[iRow].cells.length-1) 
+			if (iCell > idList.rows[iRow].cells.length-1)
 				iCell = 0
 			break
 		case 40:
 			iRow++
-			if (iRow > idList.rows.length-1) 
+			if (iRow > idList.rows.length-1)
 				iRow = 0
 			break
 		case 13:
@@ -917,7 +922,7 @@ function renderPopup_onKeyDown() {
 	el = idList.rows[iRow].cells[iCell]
 	if (el && el._item)
 		if (13 == ev.keyCode) {
-			ev.keyCode=0		
+			ev.keyCode=0
 			this.Select(el)
 		} else
 			this.Highlight(el)
@@ -1055,12 +1060,12 @@ function renderPopup_emoticonRenderer() {
 	for (var i=0; i < arEmoticons.length; i++) {
 		sz +=  '<IMG TABINDEX='+(i+1)+' ONCLICK="parent.renderPopup_selectEmoticon(this);" CLASS=emoticon SRC="'+L_EMOTICONPATH_TEXT+arEmoticons[i]+'" WIDTH=12 HEIGHT=12 HSPACE=3 VSPACE=3>';
 		if ((i+1)%8==0) sz+="<BR>";
-	}			
+	}
 	if (i%8!=0) sz+="<BR>";
 	for (var i=0; i < arBigEmoticons.length; i++) {
 		sz += '<IMG TABINDEX='+(i+arEmoticons.length)+' ONCLICK="parent.renderPopup_selectEmoticon(this);" CLASS=emoticon SRC="'+L_EMOTICONPATH_TEXT+arBigEmoticons[i]+'" WIDTH=16 HEIGHT=16 HSPACE=4 VSPACE=4>';
 		if ((i+1)%6==0) sz+="<BR>";
-	}			
+	}
 	sz+="</DIV>";
 	return sz;
 }
@@ -1073,7 +1078,7 @@ function renderPopup_selectEmoticon(elImg) {
 /**
  * Font size pop-up
  */
-function renderPopup_fontSizeRenderer(){   
+function renderPopup_fontSizeRenderer(){
 	var sz  =  '<TABLE ALIGN=center ID=idList CELLSPACING=0 CELLPADDING=0 style="'+conf_fontSizeStyle+'">';
 	for (var i=1; i <= 7; i++) 	{
 		if (conf_hideFontSizes!="*" && !isInCommaList(conf_hideFontSizes,i))	{
@@ -1083,7 +1088,7 @@ function renderPopup_fontSizeRenderer(){
 			sz+='</FONT>';
 			sz+='</TD></TR>';
 		}
-	}			
+	}
 	sz+='</TABLE>';
 	return sz;
 }
@@ -1091,7 +1096,7 @@ function renderPopup_fontSizeRenderer(){
 /**
  * Font face pop-up
  */
-function renderPopup_fontFaceRenderer(){   
+function renderPopup_fontFaceRenderer(){
 	var sz  =  '<TABLE ALIGN=center ID=idList CELLSPACING=0 CELLPADDING=0>';
 		// Default fonts
 	for (var i=0; i < defaultFonts.length; i++) 	{
@@ -1101,7 +1106,7 @@ function renderPopup_fontFaceRenderer(){
 		}
 	}
 
-		// Inserting extra fonts 
+		// Inserting extra fonts
 	if (conf_fontFace)	{
 		var index=1;
 		var theFont = split(conf_fontFace, ",", index);
@@ -1125,7 +1130,7 @@ function renderPopup_fontFaceRenderer(){
 /**
  * Paragraph style popup
  */
-function renderPopup_paragraphStyleRenderer() {   
+function renderPopup_paragraphStyleRenderer() {
 	var sz;
 	var defaultParagraphs   = new Array();
 	var thisStyle;
@@ -1135,7 +1140,7 @@ function renderPopup_paragraphStyleRenderer() {
 		defaultParagraphs[i] = new Array("<H"+i+">", L_STYLEHEADING_TEXT + i + " (H" + i + ")","H"+i);
 	}
 	defaultParagraphs[7] = new Array("<PRE>", L_STYLEFORMATTED_TEXT + "(PRE)","PRE");
-	
+
 	sz = '<TABLE CLASS=block ALIGN=center ID=idList CELLSPACING=0 CELLPADDING=0 style="'+main_elements_style["P"]+'">';
 		// Inserting the ordinary block HTML tags, like P and Hx and PRE:
 	for (var i=0; i < defaultParagraphs.length; i++) {
@@ -1148,7 +1153,7 @@ function renderPopup_paragraphStyleRenderer() {
 			+ '</TD></TR>';
 		}
 	}
-	
+
 		// Inserting the Class Formatting
 	if (conf_classesParagraph)	{
 		var index=1;
@@ -1168,7 +1173,7 @@ function renderPopup_paragraphStyleRenderer() {
 			theClass = split(conf_classesParagraph, ",", index);
 		}
 	}
-	
+
 	sz+='</TABLE>';
 	return sz;
 }
@@ -1177,15 +1182,15 @@ function renderPopup_paragraphStyleRenderer() {
 /**
  * Character style popup
  */
-function renderPopup_characterStyleRenderer() {   
+function renderPopup_characterStyleRenderer() {
 	var sz;
 	var thisStyle;
 
 		// Find the oSel type
 	var oSel	= theEditor.GetSelection();
-	var classesC = ""; 
+	var classesC = "";
 	var elName = "";
-	var currentClassName = ""; 
+	var currentClassName = "";
 	if (oSel.type != "Text")	{	// If no text is selected, find the first parent element
 		if (oSel.parentElement != null)  	{
 			elName = oSel.parentElement().tagName;
@@ -1214,9 +1219,9 @@ function renderPopup_characterStyleRenderer() {
 	} else {
 //		debugObj(oSel);
 //		debugObj(oSel.parentElement());
-		classesC = conf_classesCharacter; 
+		classesC = conf_classesCharacter;
 	}
-	
+
 	sz='<BR><TABLE CLASS=block ALIGN=center ID=idList CELLSPACING=0 CELLPADDING=0 style="'+main_elements_style["P"]+'">';
 		// Inserting the Class Formatting
 	var i=1;
@@ -1315,14 +1320,14 @@ function renderPopup_tableRendererPage(szID,bDisplay) {
 		+				   "</TD></TR><TR><TD>"
 		+				   L_TABLEINPUTCOLUMNS_TEXT
 		+				   "</TD><TD><INPUT SIZE=2 TYPE=text ID=" + szID + "txtColumns VALUE=2 >"
-		+			   "</TD></TR></TABLE></DIV>" 
-	} 
+		+			   "</TD></TR></TABLE></DIV>"
+	}
 	else  {
 		sz+= "<DIV ID='" + szID + "prop1'>"
-			+	"<P CLASS=tablePropsTitle>" + L_TABLEROWSANDCOLS_TEXT + "</P>"	
+			+	"<P CLASS=tablePropsTitle>" + L_TABLEROWSANDCOLS_TEXT + "</P>"
 			+   "<INPUT type=button ID=" + szID + "txtRows VALUE=\"" + L_TABLEINSERTROW_TEXT + "\" ONCLICK=\"parent._CTablePopupRenderer_AddRow(this)\"><P>"
 			+   "<INPUT type=button ID=" + szID + "txtCells VALUE=\"" + L_TABLEINSERTCELL_TEXT + "\" ONCLICK=\"parent._CTablePopupRenderer_AddCell(this)\"><BR>"
-			+	"</DIV>" 
+			+	"</DIV>"
 
 	}
 
@@ -1340,17 +1345,17 @@ function renderPopup_tableRendererPage(szID,bDisplay) {
 	+				   "<INPUT SIZE=2 TYPE=text ID=" + szID + "txtBorder VALUE=1>"
 	+				   "<BR>"
 	+				   L_TABLEINPUTBORDERCOLOR_TEXT
-	+				   "<INPUT SIZE=4 TYPE=text ID=" + szID + "txtBorderColor value=#000000><BR>" 
-	+				   renderPopup_colorTable("idBorder"+szID, "", "parent._CTablePopupRenderer_ColorSelect(this,'" + szID + "txtBorderColor')") 
+	+				   "<INPUT SIZE=4 TYPE=text ID=" + szID + "txtBorderColor value=#000000><BR>"
+	+				   renderPopup_colorTable("idBorder"+szID, "", "parent._CTablePopupRenderer_ColorSelect(this,'" + szID + "txtBorderColor')")
 	+			   "</DIV>"
 	+			   "<DIV ID=" + szID + "prop4 SIZE=12 STYLE=\"display: none\">"
 	+					"<P CLASS=tablePropsTitle>" + L_TABLEBG_TEXT + "</P>"
 	+				   L_TABLEINPUTBGIMGURL_TEXT
 	+				   "<INPUT TYPE=text ID=" + szID + "txtBackgroundImage SIZE=15>"
 	+				   "<BR>"
-	+				   L_TABLEINPUTBGCOLOR_TEXT	
-	+				   "<INPUT TYPE=text SIZE=4 ID=" + szID + "txtBackgroundColor><BR>" 
-	+				   renderPopup_colorTable("idBackground"+szID, "", "parent._CTablePopupRenderer_ColorSelect(this,'" + szID + "txtBackgroundColor')") 
+	+				   L_TABLEINPUTBGCOLOR_TEXT
+	+				   "<INPUT TYPE=text SIZE=4 ID=" + szID + "txtBackgroundColor><BR>"
+	+				   renderPopup_colorTable("idBackground"+szID, "", "parent._CTablePopupRenderer_ColorSelect(this,'" + szID + "txtBackgroundColor')")
 	+			   "</DIV>"
 	+		   "</TD>"
 	+	   "</TR><TR><TD align=center ID=tableButtons valign=bottom>"
@@ -1364,7 +1369,7 @@ function renderPopup_tableRendererPage(szID,bDisplay) {
 	sz+=   "</TD></TR></TABLE>"
 	return sz
 }
-function renderPopup_tableRenderer(){   
+function renderPopup_tableRenderer(){
 	var sz  = "<TABLE CLASS=tabBox ID=\"tabSelect\" CELLSPACING=0 CELLPADDING=0 WIDTH=95%><TR HEIGHT=15><TD CLASS=tabItem STYLE=\"border-bottom: none\" NOWRAP><DIV ONCLICK=\"if (tabEdit.className!='disabled') {this.className='selected';this.parentElement.style.borderBottom = tabEdit.className=tabNewBody.style.display='';tabEditBody.style.display='none';tabEdit.parentElement.style.borderBottom='1px black solid'}\" CLASS=selected ID=tabNew>"+L_TABLENEW_TEXT+"</DIV></TD>"
 	+   "<TD CLASS=tabItem NOWRAP><DIV ONCLICK=\"if (this.className!='disabled') {this.className='selected';this.parentElement.style.borderBottom = tabNew.className=tabEditBody.style.display='';tabNew.parentElement.style.borderBottom='1px black solid';tabNewBody.style.display='none'}\" CLASS=disabled ID=tabEdit>"+L_TABLEEDIT_TEXT+"</DIV></TD><TD CLASS=tabSpace WIDTH=100%>&nbsp;</TD></TR><TR><TD VALIGN=TOP CLASS=tabBody COLSPAN=3>"
 	+   renderPopup_tableRendererPage("tabNewBody",true)
@@ -1382,7 +1387,7 @@ function _CTablePopupRenderer_Select(el,szID, id) {
 }
 function _CTablePopupRenderer_ColorSelect(el,id) {
 	el.document.all[id].value = el.bgColor
-}	
+}
 function _CTablePopupRenderer_AddRow(el) {
 	var elRow = el.document.elCurrent.insertRow()
 	for (var i=0;i<el.document.elCurrent.rows[0].cells.length;i++) {
@@ -1411,13 +1416,13 @@ function _CTablePopupRenderer_BuildTable(szID, d) {
 		+	   (d.all[szID + "txtBackgroundColor"].value != "" ? "bgColor=\"" + d.all[szID + "txtBackgroundColor"].value + "\" " : "")
 		+   ">"
 
-		for (var r=0; r < d.all[szID + "txtRows"].value; r++) 
+		for (var r=0; r < d.all[szID + "txtRows"].value; r++)
 		{
 			sz +=  "<TR>"
-			
+
 			for (var c=0; c < d.all[szID + "txtColumns"].value; c++)
 				sz +=  "<TD>&nbsp;</TD>"
-			
+
 			sz +=  "</TR>"
 		}
 
@@ -1462,7 +1467,7 @@ function _CTablePopupRenderer_BuildTable(szID, d) {
 /**
  * Loading the image selector
  */
-function renderPopup_image(){   
+function renderPopup_image(){
 	var oSel = theEditor.GetSelection();
 	var oEl, sType = oSel.type;
 	idPopup.document._selectedImage="";
@@ -1477,7 +1482,7 @@ function renderPopup_image(){
 /**
  * Displaying user-selector
  */
-function renderPopup_user() {   
+function renderPopup_user() {
 	var oSel = theEditor.GetSelection();
 	GLOBAL_SEL = oSel;	// Remember selection from before...
 	var addParams="?"+conf_RTEtsConfigParams;
@@ -1532,7 +1537,7 @@ function renderPopup_addLink(url,target) {
 				var oStore = oSel.duplicate();
 				oSel.text = szURL;
 				oSel.setEndPoint("StartToStart",oStore);
-			} 
+			}
 			oSel.select();
 			sType="Text";
 		}
@@ -1556,13 +1561,13 @@ function renderPopup_addLink(url,target) {
 			oEl.target=target;
 		}
 	}
-	idEditbox.focus()	
+	idEditbox.focus()
 }
 
 /**
  * Displaying the link selector and passing the current link url and target
  */
-function renderPopup_linkRenderer() {   
+function renderPopup_linkRenderer() {
 	var oSel = theEditor.GetSelection();
 	var oEl, sType = oSel.type;
 	if (oSel.parentElement)  	{
@@ -1571,7 +1576,7 @@ function renderPopup_linkRenderer() {
 		oEl = getElementObject(oSel.item(0),"A");
 	}
 	var addUrlParams="?"+conf_RTEtsConfigParams;
-	if (oEl)	{	
+	if (oEl)	{
 		if (oSel.moveToElementText)	oSel.moveToElementText(oEl);	// Setting the selection to the current element
 		addUrlParams="?curUrl[href]="+escape(oEl.href)+"&curUrl[target]="+escape(oEl.target)+conf_RTEtsConfigParams;
 	} else if (oSel.htmlText)	{
@@ -1586,7 +1591,7 @@ function renderPopup_linkRenderer() {
 			addUrlParams="?curUrl[all]="+escape(ATagContent)+conf_RTEtsConfigParams;
 		}
 	}
-	
+
 	GLOBAL_SEL = oSel;	// Remember selection from before...
 
 	return '<IFRAME ID=idLinks WIDTH=98% HEIGHT=90% STYLE="visibility: visible;border: none" SRC="'+BACK_PATH+'browse_links.php'+addUrlParams+'"></IFRAME>';
@@ -1654,7 +1659,7 @@ function isInCommaList (theList, theVal)	{
 /**
  * Splitting a string, theStrl, by delimiter, delim, and return index, index
  */
-function split(theStr1, delim, index) {	
+function split(theStr1, delim, index) {
 	var theStr = ''+theStr1;
 	var lengthOfDelim = delim.length;
 	sPos = -lengthOfDelim;
@@ -1664,7 +1669,7 @@ function split(theStr1, delim, index) {
 		if (sPos==-1)	{return null;}
 	}
 	ePos = theStr.indexOf(delim, sPos+lengthOfDelim);
-	if(ePos == -1)	{ePos = theStr.length;}	
+	if(ePos == -1)	{ePos = theStr.length;}
 	return (theStr.substring(sPos+lengthOfDelim,ePos));
 }
 
