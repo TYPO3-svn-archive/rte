@@ -32,9 +32,9 @@ $LOCAL_LANG = Array (
 	'it' => Array (
 		'noTitle' => 'Nessun titolo',
 		'expand' => 'Espandi categoria',
-		'noTextSelection' => 'Errore: nessun testo selezionato (no text to wrap)',
+		'noTextSelection' => 'Errore: nessun testo selezionato.',
 		'pixels' => 'Pixels',
-		'filesize' => 'Dimensione del file',
+		'filesize' => 'Dimensioni file',
 	),
 	'fr' => Array (
 		'noTitle' => 'Pas de titre',
@@ -44,11 +44,16 @@ $LOCAL_LANG = Array (
 		'filesize' => 'Taille du fichier',
 	),
 	'es' => Array (
+		'noTitle' => 'Sin título',
+		'expand' => 'Expandir categoría',
+		'noTextSelection' => 'Error: No había texto seleccionado para rodear.',
+		'pixels' => 'Pixels',
+		'filesize' => 'Tamaño de fichero',
 	),
 	'nl' => Array (
 		'noTitle' => 'Geen titel',
 		'expand' => 'Uitvouwen categorie',
-		'noTextSelection' => 'Fout: Er is geen tekst geselecteerd!',
+		'noTextSelection' => 'FOUT: Er is geen tekst geselecteerd!',
 		'pixels' => 'Pixels',
 		'filesize' => 'Bestandsgrootte',
 	),
@@ -113,8 +118,10 @@ $LOCAL_LANG = Array (
 		'filesize' => 'ÎÄ¼þ´óÐ¡',
 	),
 	'sk' => Array (
-		'noTitle' => 'Bez titulky',
-		'expand' => 'Rozviò kategóriu',
+		'noTitle' => 'Bez nadpisu',
+		'expand' => 'Rozšir kategóriu',
+		'noTextSelection' => 'Chyba: Nebol vybratý žiadny text pre \'wrap\'.',
+		'pixels' => 'Body (pixely)',
 		'filesize' => 'Ve¾kos súboru',
 	),
 	'lt' => Array (
@@ -134,6 +141,11 @@ $LOCAL_LANG = Array (
 		'filesize' => 'Velièina datoteke',
 	),
 	'hu' => Array (
+		'noTitle' => 'Nincs cím',
+		'expand' => 'Kategória kiterjesztése',
+		'noTextSelection' => 'Hiba: Nincs kijelölt szöveg a tördeléshez.',
+		'pixels' => 'Pixelek',
+		'filesize' => 'Fileméret',
 	),
 	'gl' => Array (
 	),
@@ -146,8 +158,18 @@ $LOCAL_LANG = Array (
 	'eu' => Array (
 	),
 	'bg' => Array (
+		'noTitle' => 'Áåç çàãëàâèå',
+		'expand' => 'Ðàçòâîðè êàòåãîðèÿòà',
+		'noTextSelection' => 'Ãðåøêà: Íÿìàøå èçáðàí òåêñò çà ñêðèâàíå.',
+		'pixels' => 'Ïèêñåëè',
+		'filesize' => 'Ãîëåìèíà íà ôàéëà',
 	),
 	'br' => Array (
+		'noTitle' => 'Sem título',
+		'expand' => 'Expandir categoria',
+		'noTextSelection' => 'Erro: não há texto selecionado para quebrar linhas.',
+		'pixels' => 'Pontos',
+		'filesize' => 'Tamanho do Arquivo',
 	),
 	'et' => Array (
 	),
@@ -156,6 +178,12 @@ $LOCAL_LANG = Array (
 	'he' => Array (
 	),
 	'ua' => Array (
+	),
+	'lv' => Array (
+	),
+	'jp' => Array (
+	),
+	'vn' => Array (
 	),
 );
 ?>
