@@ -1,22 +1,22 @@
 <?php
 /***************************************************************
 *  Copyright notice
-*  
+*
 *  (c) 1999-2004 Kasper Skaarhoj (kasper@typo3.com)
 *  All rights reserved
 *
-*  This script is part of the TYPO3 project. The TYPO3 project is 
+*  This script is part of the TYPO3 project. The TYPO3 project is
 *  free software; you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
 *  the Free Software Foundation; either version 2 of the License, or
 *  (at your option) any later version.
-* 
+*
 *  The GNU General Public License can be found at
 *  http://www.gnu.org/copyleft/gpl.html.
-*  A copy is found in the textfile GPL.txt and important notices to the license 
+*  A copy is found in the textfile GPL.txt and important notices to the license
 *  from the author is found in LICENSE.txt distributed with these scripts.
 *
-* 
+*
 *  This script is distributed in the hope that it will be useful,
 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -24,10 +24,10 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-/** 
+/**
  * RTE initialization
  *
- * @author	Kasper Skårhøj <kasper@typo3.com>
+ * @author	Kasper Skï¿½hj <kasper@typo3.com>
  * additions by: Martin van Es <m.vanes@drecomm.nl>
  */
 /**
@@ -35,27 +35,27 @@
  *
  *
  *
- *   78: class SC_rte_rte 
- *   98:     function init()	
- *  163:     function makeToolBarHide()	
- *  215:     function getLabels()	
- *  233:     function makeHeader()	
- *  337:     function setButtons()	
- *  354:     function JSout()	
- *  472:     function main()	
- *  497:     function printContent()	
+ *   78: class SC_rte_rte
+ *   98:     function init()
+ *  163:     function makeToolBarHide()
+ *  215:     function getLabels()
+ *  233:     function makeHeader()
+ *  337:     function setButtons()
+ *  354:     function JSout()
+ *  472:     function main()
+ *  497:     function printContent()
  *
  *              SECTION: OTHER FUNCTIONS:
  *  519:     function RTEtsConfigParams()
- *  531:     function detectUselessBar($hide,$all)	
- *  564:     function cleanList($str)	
- *  580:     function filterStyleEl($elValue,$matchList)	
+ *  531:     function detectUselessBar($hide,$all)
+ *  564:     function cleanList($str)
+ *  580:     function filterStyleEl($elValue,$matchList)
  *
  * TOTAL FUNCTIONS: 12
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
- 
+
 unset($MCONF);
 require ('conf.php');
 require ($BACK_PATH.'init.php');
@@ -167,23 +167,23 @@ class SC_rte_rte {
 				// All elements:
 		$all = array('cut','copy','paste','bar1','formatblock','class','fontstyle','fontsize','textcolor','bar2','bold','italic','underline','bar3','left','center','right','bar4','orderedlist','unorderedlist','outdent','indent','bar5','link','table','bgcolor','image','bar6','emoticon','line','user');
 		$bars = array('bar1','bar2','bar3','bar4','bar5','bar6');
-		
+
 			// These can never be displayed
 		$this->hide=array();	// elements to hide
 		//	$this->hide[]='emoticon';
 		//	$this->hide[]='bgcolor';
-		
+
 			// specConf for field from backend
 		$pList = is_array($this->specConf['richtext']['parameters']) ? implode(',',$this->specConf['richtext']['parameters']) : '';
 		if ($pList!='*')	{	// If not all
 			$show = array_merge($this->specConf['richtext']['parameters'],$bars);			// Merging listed and obligatory elements
-		
+
 			if ($this->thisConfig['showButtons'])	{
 				$show = array_unique(array_merge($show,t3lib_div::trimExplode(',',$this->thisConfig['showButtons'],1)));
 			}
 			$this->hide = array_diff($all,$show);
 		}
-		
+
 			// RTEkeyList for backend user
 		$RTEkeyList = isset($BE_USER->userTS['options.']['RTEkeyList']) ? $BE_USER->userTS['options.']['RTEkeyList'] : '*';
 		if ($RTEkeyList!='*')	{
@@ -193,12 +193,12 @@ class SC_rte_rte {
 				// Toggle if 'Source code' button should be displayed.
 			$this->toggleHTML = in_array('chMode',$show) ? 1 : 0;
 		} else {$this->toggleHTML=1;}
-		
+
 			// Add removed fields from RTE config
 		if ($this->thisConfig['hideButtons'])	{
 			$this->hide = array_unique(array_merge($this->hide,t3lib_div::trimExplode(',',$this->thisConfig['hideButtons'],1)));
 		}
-		
+
 			// Making sure that no illegal keys are in the array
 		$this->hide=array_intersect($all,$this->hide);
 			// Trying to find out if any bars useless
@@ -212,14 +212,14 @@ class SC_rte_rte {
 	 */
 	function getLabels()	{
 		global $LANG,$LOCAL_LANG;
-		
+
 		include (t3lib_extMgm::extPath('rte').'app/locallang.php');
 
 		$labels='';
 		foreach($LOCAL_LANG['default'] as $key => $label)	{
 			$labels.= 'var '.$key.' = '.$LANG->JScharCode($LANG->getLL($key)).';'.chr(10);
 		}
-		
+
 		return $labels;
 	}
 
@@ -236,10 +236,10 @@ class SC_rte_rte {
 	<script language="javascript" type="text/javascript">
 
 /* Labels: */
-'.$this->getLabels().'	
-	
+'.$this->getLabels().'
+
 	</script>
-	<script language="javascript" type="text/javascript" src="rte.js"></script>		
+	<script language="javascript" type="text/javascript" src="rte.js"></script>
 	<STYLE>
 		body {margin:0pt;border:none;padding:0pt}
 		#tbDBSelect {display:none;text-align:left;width: 100;margin-right: 1pt;margin-bottom: 0pt;margin-top: 0pt;padding: 0pt}
@@ -249,12 +249,12 @@ class SC_rte_rte {
 		.tbButton {text-align:left;margin:0pt 1pt 0pt 0pt;padding:0pt}
 		#EditBox {position: relative}
 		select  {  font-family: Verdana, Arial, Helvetica; font-size: 10px }
-		textarea  {  font-family: Verdana, Arial, Helvetica; font-size: 10px} 
+		textarea  {  font-family: Verdana, Arial, Helvetica; font-size: 10px}
 		input   {  font-family: Verdana, Arial, Helvetica; font-size: 10px }
 	</STYLE>
 	<STYLE ID=skin>
 		#EditBox {margin: 0px 0px 0px 0px}
-		#tbUpRight, #tbUpLeft {width:110px}	
+		#tbUpRight, #tbUpLeft {width:110px}
 		#idMode {background: '.$this->confValues['backgroundColor'].';margin-left:0px;padding:0pt}
 		#idMode LABEL {color: black; font:bold 10px verdana; text-decoration: none}
 		#tbTopBar {height:19px}
@@ -264,7 +264,7 @@ class SC_rte_rte {
 	</STYLE>
 	<STYLE ID=defPopupSkin>
 		#popup BODY {margin:0px;border-top:none}
-		#popup .colorTable TR {height:6px} 
+		#popup .colorTable TR {height:6px}
 		#popup .colorTable TD {width:6px;cursor:hand}
 		#popup .colorTable, .CLASSES {font: 10px verdana;}
 		#popup #header {width:100%}
@@ -341,7 +341,7 @@ class SC_rte_rte {
 		}
 		$this->content.='
 		}
-		';	
+		';
 	}
 
 	/**
@@ -356,7 +356,7 @@ class SC_rte_rte {
 		// Setting up the available classes for the RTE
 		// **********************************************
 		$JSout='';
-		
+
 		$JSout.="var classes_style = new Array(); \n";
 		$JSout.="var classes_label = new Array(); \n";
 		$JSout.="var classes_noShow = new Array(); \n";
@@ -371,7 +371,7 @@ class SC_rte_rte {
 				$cc++;
 			}
 		}
-		
+
 		$JSout.="var colors_value = new Array(); \n";
 		$JSout.="var colors_label = new Array(); \n";
 		if (is_array($this->RTEsetup['properties']['colors.']))	{
@@ -382,7 +382,7 @@ class SC_rte_rte {
 				$JSout.= "colors_label['".$cName."']=".$LANG->JScharCode($LANG->sL($conf['name']))."; \n";
 			}
 		}
-		
+
 		$JSout.="var fonts_value = new Array(); \n";
 		$JSout.="var fonts_label = new Array(); \n";
 		if (is_array($this->RTEsetup['properties']['fonts.']))	{
@@ -394,14 +394,14 @@ class SC_rte_rte {
 			}
 		}
 		$mainStyle_font=($this->thisConfig['mainStyle_font']?$this->thisConfig['mainStyle_font']:'Verdana');
-		
+
 		$mainElements=array();
 		$mainElements['P'] = 'margin-top:0px; margin-bottom:5px;'.$this->thisConfig['mainStyleOverride_add.']['P'];
 		$elList=explode(',','H1,H2,H3,H4,H5,H6,PRE');
 		while(list(,$elListName)=each($elList))	{
 			if ($this->thisConfig['mainStyleOverride_add.'][$elListName])	$mainElements[$elListName]=$this->thisConfig['mainStyleOverride_add.'][$elListName];
 		}
-		
+
 		$JSout.="var main_elements_style = new Array(); \n";
 		$addElementCode='';
 		reset($mainElements);
@@ -409,7 +409,7 @@ class SC_rte_rte {
 			$addElementCode.=$elListName.' {'.$elValue."}\n";
 			$JSout.="main_elements_style['".$elListName."']=unescape('".rawurlencode($this->filterStyleEl($elValue,'color,font*'))."');\n";
 		}
-		
+
 		$styleCode = $this->thisConfig['mainStyleOverride'] ? $this->thisConfig['mainStyleOverride'] : '
 		BODY {border: 1px black solid; border-top: none; margin : 2 2 2 2'.
 			'; font-family:'.$mainStyle_font.
@@ -424,13 +424,13 @@ class SC_rte_rte {
 		UL {margin: 5px 10px 5px 30px;'.$this->thisConfig['mainStyleOverride_add.']['UL'].'}
 		BLOCKQUOTE {margin-top:0px; margin-bottom:0px;'.$this->thisConfig['mainStyleOverride_add.']['BLOCKQUOTE'].'}
 		'.$addElementCode;
-		
+
 		if (is_array($this->thisConfig['inlineStyle.']))	{
 			$styleCode.=chr(10).implode(chr(10),$this->thisConfig['inlineStyle.']).chr(10);
 		}
-		
+
 		$JSout.='var inlineStyle = unescape("'.t3lib_div::rawUrlEncodeJS($styleCode).'");'.chr(10);
-		
+
 		$JSout.="var conf_classesParagraph = '".$this->cleanList($this->thisConfig['classesParagraph'])."'; \n";
 		$JSout.="var conf_classesCharacter = '".$this->cleanList($this->thisConfig['classesCharacter'])."'; \n";
 		$JSout.="var conf_classesImage = '".$this->cleanList($this->thisConfig['classesImage'])."'; \n";
@@ -448,8 +448,8 @@ class SC_rte_rte {
 		$JSout.="var conf_fontSizeStyle = unescape('font-family:".rawurlencode($mainStyle_font)."');\n";
 		$JSout.="var conf_NeutralStyle = 'font-family:Verdana,Arial; font-size:10; font-weight:normal; color:black;';\n";
 		$JSout.='var conf_showExampleInPopups = '.($this->thisConfig['disablePCexamples']?0:1).";\n";
-		
-		
+
+
 		/*
 		$JSout.='alert(conf_classesParagraph);';
 		$JSout.='alert(conf_classesCharacter);';
@@ -458,7 +458,7 @@ class SC_rte_rte {
 		$JSout.='alert(conf_hidePStyleItems);';
 		$JSout.='alert(conf_hideFontFaces);';
 		*/
-		
+
 		$this->content.=$JSout;
 	}
 
@@ -470,7 +470,7 @@ class SC_rte_rte {
 	function main()	{
 		$this->content.='
 </script>
-</head>			
+</head>
 <body tabindex="-1" scroll="no" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;" onscroll="return false;" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
 	<div id="idEditor" style="visibility: hidden;">
 		<table id="idToolbar" border="0" width="100%" cellspacing="0" cellpadding="0" onclick="edHidePopup();">
@@ -479,11 +479,11 @@ class SC_rte_rte {
 			</tr>
 			<tr><td bgcolor="black"><img src="clear.gif" width="1" height="1" alt="" /></td></tr>
 		</table>
-		<iframe src="./" name="idPopup" style="height: 200px; left: 25px; margin-top: 8px; position: absolute; visibility: hidden; width: 200px; z-index: -1"></iframe>
-		<iframe src="./" id="EditBox" name="idEditbox" width="100%" height="100%" onfocus="edHidePopup();" onblur="spitItOut();"></iframe>
+		<iframe src="res/blank.html" name="idPopup" style="height: 200px; left: 25px; margin-top: 8px; position: absolute; visibility: hidden; width: 200px; z-index: -1"></iframe>
+		<iframe src="res/blank.html" id="EditBox" name="idEditbox" width="100%" height="100%" onfocus="edHidePopup();" onblur="spitItOut();"></iframe>
 		<div id="tbmode"><script language="javascript" type="text/javascript">drawModeSelect('.$this->toggleHTML.');</script></div>
 	</div>
-</body>	
+</body>
 </html>';
 	}
 
@@ -495,7 +495,7 @@ class SC_rte_rte {
 	function printContent()	{
 		echo $this->content;
 	}
-	
+
 
 
 
@@ -507,10 +507,10 @@ class SC_rte_rte {
 
 	/***************************
 	 *
-	 * OTHER FUNCTIONS:	
+	 * OTHER FUNCTIONS:
 	 *
 	 ***************************/
-	
+
 	/**
 	 * @return	[type]		...
 	 */
