@@ -24,6 +24,7 @@ $EM_CONF[$_EXTKEY] = Array (
 	'createDirs' => '',
 	'modify_tables' => '',
 	'clearCacheOnLoad' => 0,
+	'TYPO3_version' => '3.6.0RC2',	
 	'lockType' => 'G',
 	'author' => 'Kasper Skårhøj',
 	'author_email' => 'kasper@typo3.com',

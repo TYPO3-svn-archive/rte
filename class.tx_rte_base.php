@@ -25,7 +25,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 /**
- * RTE base class
+ * RTE base class (Traditional RTE for MSIE 5+ on windows only!)
  *
  * @author	Kasper Skårhøj <kasper@typo3.com>
  */
@@ -49,7 +49,7 @@
 
 require_once(PATH_t3lib.'class.t3lib_rteapi.php');
 /**
- * RTE base class: Delivers browser-detection, TCEforms binding and transformation routines for the "rte" extension, registering it with the RTE API in TYPO3 3.6.0
+ * RTE base class (Traditional RTE for MSIE 5+ on windows only!)
  *
  * @author	Kasper Skaarhoj <kasper@typo3.com>
  * @package TYPO3
@@ -86,8 +86,7 @@ class tx_rte_base extends t3lib_rteapi {
 	}
 
 	/**
-	 * Draws the RTE as a form field or whatever is needed (inserts JavaApplet, creates iframe, renders ....)
-	 * Default is to output the transformed content in a plain textarea field. This mode is great for debugging transformations!
+	 * Draws the RTE as an iframe for MSIE 5+
 	 *
 	 * @param	object		Reference to parent object, which is an instance of the TCEforms.
 	 * @param	string		The table name
@@ -110,7 +109,6 @@ class tx_rte_base extends t3lib_rteapi {
 
 				// Adding needed code in top:
 			$pObj->additionalJS_pre['rte_loader_function'] = $this->loaderFunc($pObj->formName);
-			#$pObj->additionalJS_post[] = 'alert("'.$PA['itemFormElName'].'");';
 			$pObj->additionalJS_submit[] = "
 							if(TBE_RTE_WINDOWS['".$PA['itemFormElName']."'])	{ document.".$pObj->formName."['".$PA['itemFormElName']."'].value = TBE_RTE_WINDOWS['".$PA['itemFormElName']."'].getHTML(); } else { OK=0; }";
 
