@@ -1,3 +1,6 @@
+- Clean up / streamline JS code for TYPO3 (Kasper)
+- Documentation clean up (Kasper)
+
 ***********
 TODO
 ***********
@@ -16,11 +19,11 @@ The RTE's tableeditor needs to be improved a lot with options for inserting, del
 - Adding paragraph "signs" after paragraphs"
 
 Documentation:
-- [From Ben:] There is a serious need for some examples. 
+- [From Ben:] There is a serious need for some examples.
 - [From Ben:] Would be nice if we can have some preconfiguration extensions for RTE processing.
 
 Also see:
-- [Kasper] "Workflow" folder in Mailbox 
+- [Kasper] "Workflow" folder in Mailbox
 
 **********
 Bugs:

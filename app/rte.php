@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 1999-2004 Kasper Skaarhoj (kasper@typo3.com)
+*  (c) 1999-2004 Kasper Skaarhoj (kasperYYYY@typo3.com)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,7 +27,7 @@
 /**
  * RTE initialization
  *
- * @author	Kasper Skï¿½hj <kasper@typo3.com>
+ * @author	Kasper Skårhøj <kasperYYYY@typo3.com>
  * additions by: Martin van Es <m.vanes@drecomm.nl>
  */
 /**
@@ -71,7 +71,7 @@ require_once (PATH_t3lib.'class.t3lib_page.php');
 /**
  * Script Class
  *
- * @author	Kasper Skaarhoj <kasper@typo3.com>
+ * @author	Kasper Skaarhoj <kasperYYYY@typo3.com>
  * @package TYPO3
  * @subpackage tx_rte
  */
@@ -96,7 +96,7 @@ class SC_rte_rte {
 	 * @return	[type]		...
 	 */
 	function init()	{
-		global $BE_USER,$LANG,$HTTP_GET_VARS,$TBE_TEMPLATE,$TCA;
+		global $BE_USER,$LANG,$TBE_TEMPLATE,$TCA;
 #debug(t3lib_div::_GET());
 
 			// Element ID + pid
@@ -108,7 +108,7 @@ class SC_rte_rte {
 
 			// Record "types" field value:
 		$this->typeVal = t3lib_div::_GP('typeVal');
-		if (!isset($HTTP_GET_VARS['typeVal']))	{
+		if (!isset($_GET['typeVal']))	{
 			die ('System Error: No typeVal was sent!');
 		}
 
@@ -479,8 +479,8 @@ class SC_rte_rte {
 			</tr>
 			<tr><td bgcolor="black"><img src="clear.gif" width="1" height="1" alt="" /></td></tr>
 		</table>
-		<iframe src="" name="idPopup" style="height: 200px; left: 25px; margin-top: 8px; position: absolute; visibility: hidden; width: 200px; z-index: -1"></iframe>
-		<iframe src="" id="EditBox" name="idEditbox" width="100%" height="100%" onfocus="edHidePopup();" onblur="spitItOut();"></iframe>
+		<iframe src="./rte.php" name="idPopup" style="height: 200px; left: 25px; margin-top: 8px; position: absolute; visibility: hidden; width: 200px; z-index: -1"></iframe>
+		<iframe src="./rte.php" id="EditBox" name="idEditbox" width="100%" height="100%" onfocus="edHidePopup();" onblur="spitItOut();"></iframe>
 		<div id="tbmode"><script language="javascript" type="text/javascript">drawModeSelect('.$this->toggleHTML.');</script></div>
 	</div>
 </body>
