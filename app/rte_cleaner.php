@@ -1,22 +1,22 @@
 <?php
 /***************************************************************
 *  Copyright notice
-*  
-*  (c) 1999-2004 Kasper Skaarhoj (kasperYYYY@typo3.com)
+*
+*  (c) 1999-2005 Kasper Skaarhoj (kasperYYYY@typo3.com)
 *  All rights reserved
 *
-*  This script is part of the TYPO3 project. The TYPO3 project is 
+*  This script is part of the TYPO3 project. The TYPO3 project is
 *  free software; you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
 *  the Free Software Foundation; either version 2 of the License, or
 *  (at your option) any later version.
-* 
+*
 *  The GNU General Public License can be found at
 *  http://www.gnu.org/copyleft/gpl.html.
-*  A copy is found in the textfile GPL.txt and important notices to the license 
+*  A copy is found in the textfile GPL.txt and important notices to the license
 *  from the author is found in LICENSE.txt distributed with these scripts.
 *
-* 
+*
 *  This script is distributed in the hope that it will be useful,
 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -24,9 +24,9 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-/** 
+/**
  * EXAMPLE SCRIPT! Simply strips HTML of content from RTE
- * 
+ *
  * @author	Kasper Skaarhoj <kasperYYYY@typo3.com>
  */
 /**
@@ -34,10 +34,10 @@
  *
  *
  *
- *   66: class SC_rte_cleaner 
- *   74:     function init()	
- *  102:     function main()	
- *  122:     function printContent()	
+ *   66: class SC_rte_cleaner
+ *   74:     function init()
+ *  102:     function main()
+ *  122:     function printContent()
  *
  * TOTAL FUNCTIONS: 3
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -54,7 +54,7 @@ require ($BACK_PATH.'template.php');
 
 /**
  * Script Class
- * 
+ *
  * @author	Kasper Skaarhoj <kasperYYYY@typo3.com>
  * @package TYPO3
  * @subpackage tx_rte
@@ -62,11 +62,11 @@ require ($BACK_PATH.'template.php');
 class SC_rte_cleaner {
 	var $content;
 	var $siteURL;
-	var $doc;	
-	
+	var $doc;
+
 	/**
 	 * Initialize.
-	 * 
+	 *
 	 * @return	void
 	 */
 	function init()	{
@@ -79,7 +79,7 @@ class SC_rte_cleaner {
 		$this->doc->form = '';
 		$this->doc->JScode=$this->doc->wrapScriptTags('
 			var RTEobj = self.parent.parent;
-		
+
 			function setSelectedTextContent(content)	{	//
 				var oSel = RTEobj.GLOBAL_SEL;
 				var sType = oSel.type;
@@ -92,7 +92,7 @@ class SC_rte_cleaner {
 
 	/**
 	 * Create main content (JavaScript section).
-	 * 
+	 *
 	 * @return	void
 	 */
 	function main()	{
@@ -107,7 +107,7 @@ class SC_rte_cleaner {
 
 	/**
 	 * Print content
-	 * 
+	 *
 	 * @return	void
 	 */
 	function printContent()	{

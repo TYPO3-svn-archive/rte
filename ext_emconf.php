@@ -2,9 +2,9 @@
 
 ########################################################################
 # Extension Manager/Repository config file for ext: "rte"
-# 
+#
 # Auto generated 26-04-2004 15:20
-# 
+#
 # Manual updates:
 # Only the data in the array - anything else is removed by next write
 ########################################################################
@@ -13,7 +13,7 @@ $EM_CONF[$_EXTKEY] = Array (
 	'title' => 'Rich Text Editor',
 	'description' => 'Rich Text Editor based on MSIE Active X. This is the one that has been around all the time. Now it\'s just an extension...',
 	'category' => 'be',
-	'shy' => 1,
+	'shy' => 0,
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
